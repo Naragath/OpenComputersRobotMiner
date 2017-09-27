@@ -5,6 +5,7 @@ lib
 init.lua
 options.lua
 lib/moveTo.lua
+lib/version.lua
 
 ##VERSION
-0.0.1
+0.0.2
