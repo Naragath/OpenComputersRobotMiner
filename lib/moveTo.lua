@@ -8,8 +8,9 @@ local robot = require("robot");
 local component = require("component");
 --local nav = require("navigation");
 --local comp = require("component");
---local nav = comp.navigation;
+local nav = component.navigation;
 
+--[[
 function proxyFor(name, required)
   local address = component and component.list(name)()
   if not address and required then
@@ -20,6 +21,7 @@ end
 
 --local robot = proxyFor("robot",true);
 local nav = proxyFor("navigation",true);
+]]
 
 
 
