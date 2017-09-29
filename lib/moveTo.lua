@@ -23,11 +23,14 @@ end
 local nav = proxyFor("navigation",true);
 ]]
 
-local moveTo = {};
+local moveTo = {
+				hasHome = false,
+				homePoint = {}
+				};
 local navPoints = {};
-local homePoint = {};
+--local homePoint = {};
 local range = 200;
-local hasHome = false;
+--local hasHome = false;
 --local homePoint;
 
 local function fWP(filter)
@@ -55,17 +58,17 @@ function tLen(t)
 
 end
 
-function moveTo.getHome(navID)
-	homePoint = fWP(function(w) return w.label == navID; end);
-	if next(homePoint) == nil then
-		hasHome = false;
+function moveTo.setHome(navID)
+	self.homePoint = fWP(function(w) return w.label == navID; end);
+	if next(self.homePoint) == nil then
+		self.hasHome = false;
 	else
-		hasHome = true;
+		self.hasHome = true;
 	end
 end
 
 function moveTo.returnToZero()
-		if not hasHome then
+		if not self.hasHome then
 			print("Home waypoint has not been set, please select one...");
 		else
 			print("Doing some nav stuffz.");
