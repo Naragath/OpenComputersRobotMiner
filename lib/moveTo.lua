@@ -5,7 +5,7 @@
 --You may modify this file as long as you don't claim this to be your own work and give me credit.
 
 local robot = require("robot");
-local component = require("component");
+--local component = require("component");
 --local nav = require("navigation");
 --local comp = require("component");
 --local nav = comp.navigation;
@@ -19,7 +19,7 @@ function proxyFor(name, required)
 end
 
 --local robot = proxyFor("robot",true);
-local nav = proxyFor("nvigation",true);
+local nav = proxyFor("navigation",true);
 
 
 
