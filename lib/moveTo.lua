@@ -57,14 +57,18 @@ function moveTo.returnToZero(navID)
 	if zeroNav.firstRun then
 		navPoints = nav.findWaypoints(40);
 		print(tLen(navPoints));
-		homePoint = fWP(function(w) return w.redstone > 0; end);
+		homePoint = fWP(function(w) return w.label == navID; end);
 		zeroNav.firstRun = false;
 		print("Found homepoint...");
+		print(homePoint.data.position[1]);
+		print(homePoint.data.position[2]);
+		print(homePoint.data.position[3]);
 	end
 end
 
-function moveTo.moveC(chunkX,chunkY)
+function moveTo.moveC(chunkX,chunkY)  --Move to specific chunk(THIS IS NOT X,Y POSITION IN THE WORLD.  This is x,y chunk based on where the starting point is)[eg. 5,4 is 5 chunks to the right, 4 chunks forward
   print("Moving...");
+  
 end
 
 return moveTo;
