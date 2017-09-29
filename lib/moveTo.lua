@@ -23,16 +23,11 @@ end
 local nav = proxyFor("navigation",true);
 ]]
 
-
-
-local zeroNav = {
-					firstRun = true,
-					data = {}
-				};
-
 local moveTo = {};
 local navPoints = {};
-local homePoint = {};
+local range = 200;
+local hasHome = false;
+--local homePoint;
 
 local function fWP(filter)
 	local ret = {};
@@ -46,6 +41,10 @@ local function fWP(filter)
 	return ret;
 end
 
+local function updateWaypoints()
+	navPoints = nav.findWaypoints(range);
+end
+
 function tLen(t)
 	local count = 0;
 	for _ in pairs(t) do
@@ -55,9 +54,19 @@ function tLen(t)
 
 end
 
-function moveTo.returnToZero(navID)
+function moveTo.getHome(navID)
+
+end
+
+function moveTo.returnToZero()
+		if not hasHome then
+			print("Home waypoint has not been set, please select one...");
+		else
+			print("Doing some nav stuffz.");
+		end
+	--[[
 	if zeroNav.firstRun then
-		navPoints = nav.findWaypoints(40);
+		--navPoints = nav.findWaypoints(40);
 		print(tLen(navPoints));
 		homePoint = fWP(function(w) return w.label == navID; end);
 		zeroNav.firstRun = false;
@@ -66,6 +75,7 @@ function moveTo.returnToZero(navID)
 		print(homePoint.position[2]);
 		print(homePoint.position[3]);
 	end
+	]]
 end
 
 function moveTo.moveC(chunkX,chunkY)  --Move to specific chunk(THIS IS NOT X,Y POSITION IN THE WORLD.  This is x,y chunk based on where the starting point is)[eg. 5,4 is 5 chunks to the right, 4 chunks forward
