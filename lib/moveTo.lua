@@ -32,7 +32,7 @@ local moveTo = {};
 
 function moveTo.returnToZero(nav)
 	if zeroNav.firstRun then
-		local navPoints = nav:findWaypoints(256);
+		local navPoints = nav.findWaypoints(40);
 		for i,n in pairs(navPoints) do
 			if n.label == nav then
 				zeroNav.data = n;
