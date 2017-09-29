@@ -23,7 +23,7 @@ end
 local nav = proxyFor("navigation",true);
 ]]
 
-local moveTo = {
+moveTo = {
 				hasHome = false,
 				homePoint = {}
 				};
@@ -45,7 +45,7 @@ local function fWP(filter)
 	return ret;
 end
 
-local function updateWaypoints()
+local function moveTo.updateWaypoints()
 	navPoints = nav.findWaypoints(range);
 end
 
@@ -59,8 +59,9 @@ function tLen(t)
 end
 
 function moveTo.setHome(navID)
-	self.homePoint = fWP(function(w) return w.label == navID; end);
-	if next(self.homePoint) == nil then
+	moveTo.updateWaypoints();
+	moveTo.homePoint = fWP(function(w) return w.label == navID; end);
+	if next(moveTo.homePoint) == nil then
 		moveTo.hasHome = false;
 	else
 		moveTo.hasHome = true;
