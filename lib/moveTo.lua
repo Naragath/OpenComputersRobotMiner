@@ -36,6 +36,9 @@ function moveTo.returnToZero(navID)
 	if zeroNav.firstRun then
 		local navPoints = nav.findWaypoints(40);
 		for i,n in pairs(navPoints) do
+			for nv,nz in pairs(n) do
+				print(nz.label);
+			end
 		print(tostring(n));
 			--[[
 			if n.label == navID then
