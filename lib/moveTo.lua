@@ -39,6 +39,7 @@ local function fWP(filter)
 	for _,w in ipairs(navPoints) do
 		if filter(w) then
 			print("Found a match!");
+			print("Position X: " .. w.position[1]);
 			table.insert(ret,w);
 		end
 	end
