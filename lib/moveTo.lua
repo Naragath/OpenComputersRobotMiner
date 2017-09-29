@@ -44,9 +44,19 @@ local function fWP(filter)
 	return ret;
 end
 
+function tLen(t)
+	local count = 0;
+	for _ in pairs(t) do
+		count = count + 1;
+	end
+	return count;
+
+end
+
 function moveTo.returnToZero(navID)
 	if zeroNav.firstRun then
 		navPoints = nav.findWaypoints(40);
+		print(tLen(navPoints));
 		homePoint = fWP(function(w) return w.label == navID end);
 		zeroNav.firstRun = false;
 		print("Found homepoint...");
