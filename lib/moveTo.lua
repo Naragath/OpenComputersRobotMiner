@@ -57,7 +57,7 @@ function moveTo.returnToZero(navID)
 	if zeroNav.firstRun then
 		navPoints = nav.findWaypoints(40);
 		print(tLen(navPoints));
-		homePoint = fWP(function(w) return w.label == navID end);
+		homePoint = fWP(function(w) return w.redston > 0; end);
 		zeroNav.firstRun = false;
 		print("Found homepoint...");
 	end
