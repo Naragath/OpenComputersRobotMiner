@@ -8,4 +8,4 @@ lib/moveTo.lua
 lib/version.lua
 
 ##VERSION
-0.0.31
+0.0.32

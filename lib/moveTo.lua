@@ -60,9 +60,9 @@ function moveTo.returnToZero(navID)
 		homePoint = fWP(function(w) return w.label == navID; end);
 		zeroNav.firstRun = false;
 		print("Found homepoint...");
-		print(homePoint.data.position[1]);
-		print(homePoint.data.position[2]);
-		print(homePoint.data.position[3]);
+		print(homePoint.position[1]);
+		print(homePoint.position[2]);
+		print(homePoint.position[3]);
 	end
 end
 
