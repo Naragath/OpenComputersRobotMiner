@@ -4,7 +4,7 @@
 
 --You may modify this file as long as you don't claim this to be your own work and give me credit.
 
---local robot = require("robot");
+local robot = require("robot");
 --local comp = require("component");
 --local nav = comp.navigation;
 
@@ -16,7 +16,7 @@ function proxyFor(name, required)
   return address and component.proxy(address) or nil
 end
 
-local robot = proxyFor("robot",true);
+--local robot = proxyFor("robot",true);
 local nav = proxyFor("nvigation",true);
 
 
