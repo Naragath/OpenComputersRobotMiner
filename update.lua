@@ -2,10 +2,10 @@
 lib
 
 ##FILES
-init.lua
+rm_run.lua
 options.lua
 lib/moveTo.lua
 lib/version.lua
 
 ##VERSION
-0.0.2
+0.0.3
