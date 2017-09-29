@@ -14,7 +14,7 @@ local zeroNav = {
 
 local moveTo = {};
 
-function moveTo.returnToZero(nav)
+local function moveTo.returnToZero(nav)
 	if zeroNav.firstRun then
 		local navPoints = nav.findWaypoints(256);
 		for i,n in pairs(navPoints) do
@@ -26,7 +26,7 @@ function moveTo.returnToZero(nav)
 	end
 end
 
-function moveTo.moveC(chunkX,chunkY)
+local function moveTo.moveC(chunkX,chunkY)
   print("Moving...");
 end
 
