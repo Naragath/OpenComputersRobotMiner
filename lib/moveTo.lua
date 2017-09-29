@@ -5,7 +5,27 @@
 --You may modify this file as long as you don't claim this to be your own work and give me credit.
 
 local robot = require("robot");
+local zeroNav = {
+					firstRun = true,
+					data = {}
+				};
 
-function moveToXY(x,y)
-	print("Moving to " .. x .. "," .. y .. ".");
+local moveTo = {};
+
+function moveTo.returnToZero(nav)
+	if zeroNav.firstRun then
+		local navPoints = findWaypoints(256);
+		for i,n in pairs(navPoints) do
+			if n.label == nav then
+				zeroNav = n;
+				print("Found the navPoint, moving to it now...");
+			end
+		end
+	end
 end
+
+function moveTo.moveC(chunkX,chunkY)
+  print("Moving...");
+end
+
+return moveTo;

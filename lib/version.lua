@@ -1,5 +1,7 @@
 local version = {
-	version.major = 0,
-	version.minor = 0,
-	version.build = 3
+  major = 0,
+  minor = 0,
+  build = 3
 }
+
+return version;
