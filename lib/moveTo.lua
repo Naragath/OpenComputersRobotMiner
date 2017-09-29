@@ -31,25 +31,25 @@ local zeroNav = {
 				};
 
 local moveTo = {};
+local navPoints = {};
+local homePoint = {};
+
+local function fWP(filter)
+	local ret = {};
+	for _,w in pairs(navPoints) do
+		if filter(w) then
+			table.insert(ret,w);
+		end
+	end
+	return ret;
+end
 
 function moveTo.returnToZero(navID)
 	if zeroNav.firstRun then
-		local navPoints = nav.findWaypoints(40);
-		for i,n in pairs(navPoints) do
-			if type(n) == "table" then
-				for nv,nz in pairs(n) do
-					print(nz.label);
-				end
-			end
-		print(tostring(n));
-			--[[
-			if n.label == navID then
-				zeroNav.data = n;
-				zeroNav.firstRun = false;
-				print("Found the navPoint, moving to it now...");
-			end
-			]]
-		end
+		navPoints = nav.findWaypoints(40);
+		homePoint = fWP(function(w) return w.label == navID end);
+		zeroNav.firstRun = false;
+		print("Found homepoint...");
 	end
 end
 
