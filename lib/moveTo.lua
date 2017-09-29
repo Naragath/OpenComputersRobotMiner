@@ -5,6 +5,8 @@
 --You may modify this file as long as you don't claim this to be your own work and give me credit.
 
 local robot = require("robot");
+local comp = require("component");
+local nav = comp.navigation;
 local zeroNav = {
 					firstRun = true,
 					data = {}
@@ -14,7 +16,7 @@ local moveTo = {};
 
 function moveTo.returnToZero(nav)
 	if zeroNav.firstRun then
-		local navPoints = findWaypoints(256);
+		local navPoints = nav.findWaypoints(256);
 		for i,n in pairs(navPoints) do
 			if n.label == nav then
 				zeroNav = n;
