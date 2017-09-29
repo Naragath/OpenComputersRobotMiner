@@ -23,7 +23,7 @@ end
 local nav = proxyFor("navigation",true);
 ]]
 
-moveTo = {
+local moveTo = {
 				hasHome = false,
 				homePoint = {}
 				};
