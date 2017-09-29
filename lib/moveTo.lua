@@ -8,14 +8,6 @@
 --local comp = require("component");
 --local nav = comp.navigation;
 
-local function proxyFor(name, required)
-  local address = component and component.list(name)()
-  if not address and required then
-    error("missing component '" .. name .. "'")
-  end
-  return address and component.proxy(address) or nil
-end
-
 local robot = proxyFor("robot",true);
 local nav = proxyFor("nvigation",true);
 
@@ -28,7 +20,7 @@ local zeroNav = {
 
 local moveTo = {};
 
-local function moveTo.returnToZero(nav)
+function moveTo.returnToZero(nav)
 	if zeroNav.firstRun then
 		local navPoints = nav.findWaypoints(256);
 		for i,n in pairs(navPoints) do
@@ -40,7 +32,7 @@ local function moveTo.returnToZero(nav)
 	end
 end
 
-local function moveTo.moveC(chunkX,chunkY)
+function moveTo.moveC(chunkX,chunkY)
   print("Moving...");
 end
 
