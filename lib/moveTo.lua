@@ -61,14 +61,14 @@ end
 function moveTo.setHome(navID)
 	self.homePoint = fWP(function(w) return w.label == navID; end);
 	if next(self.homePoint) == nil then
-		self.hasHome = false;
+		moveTo.hasHome = false;
 	else
-		self.hasHome = true;
+		moveTo.hasHome = true;
 	end
 end
 
 function moveTo.returnToZero()
-		if not self.hasHome then
+		if not moveTo.hasHome then
 			print("Home waypoint has not been set, please select one...");
 		else
 			print("Doing some nav stuffz.");
