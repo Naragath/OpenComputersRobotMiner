@@ -36,7 +36,7 @@ local homePoint = {};
 
 local function fWP(filter)
 	local ret = {};
-	for _,w in pairs(navPoints) do
+	for _,w in ipairs(navPoints) do
 		if filter(w) then
 			table.insert(ret,w);
 		end
