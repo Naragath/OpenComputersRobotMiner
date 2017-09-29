@@ -8,6 +8,14 @@
 --local comp = require("component");
 --local nav = comp.navigation;
 
+function proxyFor(name, required)
+  local address = component and component.list(name)()
+  if not address and required then
+    error("missing component '" .. name .. "'")
+  end
+  return address and component.proxy(address) or nil
+end
+
 local robot = proxyFor("robot",true);
 local nav = proxyFor("nvigation",true);
 

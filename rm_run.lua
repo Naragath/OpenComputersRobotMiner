@@ -6,14 +6,6 @@ local mT = require("moveTo");
 local version = require("version");
 --local nav = comp.navigation;
 
-function proxyFor(name, required)
-  local address = component and component.list(name)()
-  if not address and required then
-    error("missing component '" .. name .. "'")
-  end
-  return address and component.proxy(address) or nil
-end
-
 print("Welcome to Naragath\'s Robot Miner v" .. version.major .. "." .. version.minor .. "." .. version.build);
 print("Loading please wait...");
 mT.returnToZero("rm1");
