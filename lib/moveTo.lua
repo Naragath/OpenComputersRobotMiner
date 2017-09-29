@@ -33,7 +33,8 @@ function moveTo.returnToZero(nav)
 		local navPoints = nav.findWaypoints(256);
 		for i,n in pairs(navPoints) do
 			if n.label == nav then
-				zeroNav = n;
+				zeroNav.data = n;
+				zeroNav.firstRun = false;
 				print("Found the navPoint, moving to it now...");
 			end
 		end
