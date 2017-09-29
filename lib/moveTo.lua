@@ -32,11 +32,11 @@ local zeroNav = {
 
 local moveTo = {};
 
-function moveTo.returnToZero(nav)
+function moveTo.returnToZero(navID)
 	if zeroNav.firstRun then
 		local navPoints = nav.findWaypoints(40);
 		for i,n in pairs(navPoints) do
-			if n.label == nav then
+			if n.label == navID then
 				zeroNav.data = n;
 				zeroNav.firstRun = false;
 				print("Found the navPoint, moving to it now...");
