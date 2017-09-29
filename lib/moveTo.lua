@@ -25,6 +25,7 @@ local nav = proxyFor("navigation",true);
 
 local moveTo = {};
 local navPoints = {};
+local homePoint = {};
 local range = 200;
 local hasHome = false;
 --local homePoint;
@@ -55,7 +56,12 @@ function tLen(t)
 end
 
 function moveTo.getHome(navID)
-
+	homePoint = fWP(function(w) return w.label == navID; end);
+	if next(homePoint) == nil then
+		hasHome = false;
+	else
+		hasHome = true;
+	end
 end
 
 function moveTo.returnToZero()
