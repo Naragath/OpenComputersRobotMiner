@@ -5,11 +5,10 @@
 --You may modify this file as long as you don't claim this to be your own work and give me credit.
 
 local robot = require("robot");
-local nav = require("navigation");
+--local nav = require("navigation");
 --local comp = require("component");
 --local nav = comp.navigation;
 
---[[
 function proxyFor(name, required)
   local address = component and component.list(name)()
   if not address and required then
@@ -17,10 +16,9 @@ function proxyFor(name, required)
   end
   return address and component.proxy(address) or nil
 end
-]]
 
 --local robot = proxyFor("robot",true);
---local nav = proxyFor("nvigation",true);
+local nav = proxyFor("nvigation",true);
 
 
 
