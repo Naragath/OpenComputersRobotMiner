@@ -97,6 +97,8 @@ function moveTo.returnHome()  --Useful to get the robot to go to a spot that the
 				_debug("Home waypoint has not been set, did it get removed?");
 			else
 				_debug("Doing some nav stuffz.");
+				_debug(type(moveTo.homePoint) .. " homePoint type...");
+				_debug(type(moveTo.homePoint.position) .. " homePoint.position type...");
 				moveTo.moveTo(moveTo.homePoint.position);
 			end
 end
@@ -126,6 +128,7 @@ function moveTo.moveTo(x,y,z)  --Sets where the robot is going to move to, DOES 
 		z = x[3];
 		x = x[1];  --Make sure to assign x last or else y and z can't be assigned(as x will no longer be a table).
 	end
+	_debug(type(x));
 	moveTo.tPosition.x = x;
 	moveTo.tPosition.y = y;
 	moveTo.tPosition.z = z;
