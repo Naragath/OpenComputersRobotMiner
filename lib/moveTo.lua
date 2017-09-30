@@ -27,7 +27,9 @@
 local robot = require("robot");
 local component = require("component");
 local sides = require("sides");
+local dev = require("debug");
 local nav = component.navigation;
+
 
 local moveTo = {
 				hasHome = false,
@@ -47,12 +49,16 @@ local moveTo = {
 local navPoints = {};
 local range = 200;
 
+function _debug(msg) --Simple debugging while developing, simply prints to the string if inDev is true
+	dev.debug(msg);
+end
+
 local function fWP(filter)  --Filter waypoints by a filter(a function returning true or false)
 	local ret = {};
 	for _,w in ipairs(navPoints) do
 		if filter(w) then
-			print("Found a match!");
-			print("Position X: " .. w.position[1]);
+			_debug("Found a match!");
+			_debug("Position X: " .. w.position[1]);
 			table.insert(ret,w);
 		end
 	end
@@ -73,7 +79,7 @@ function tLen(t)  --Simple table counting function since table.getn() doesn't wo
 end
 
 function moveTo.noNav()  --Should only call if there is no navigation component, later will assume there where the robot is put down is the corner of chunk 0(so we can use it on lower tier robots)
-	print("ERROR: There is no navigation upgrade in this robot, Naragath\'s robot miner cannot work properly without it...");
+	_debug("ERROR: There is no navigation upgrade in this robot, Naragath\'s robot miner cannot work properly without it...");
 end
 
 function moveTo.setHome(navID)  --Make sure to call this before returnHome so that it knows where "home" is at(used to calculate where each chunk available for mining is at at).
@@ -88,9 +94,9 @@ end
 
 function moveTo.returnHome()  --Useful to get the robot to go to a spot that the player can easily get to(assuming they don't have or want to use flight)
 			if not moveTo.hasHome then
-				print("Home waypoint has not been set, did it get removed?");
+				_debug("Home waypoint has not been set, did it get removed?");
 			else
-				print("Doing some nav stuffz.");
+				_debug("Doing some nav stuffz.");
 				moveTo.moveTo(moveTo.homePoint.position);
 			end
 end
@@ -101,7 +107,7 @@ function moveTo.moveTick()  --Without nav we'll have to assume that the first wa
 			if moveTo.currentFacing == sides.east then
 				local success, why = robot.forward();
 				if success == nil then
-					print(why);
+					_debug(why);
 				end
 			elseif moveTo.currentFacing == sides.north or sides.west then
 				robot.turnRight();
@@ -115,6 +121,7 @@ end
 
 function moveTo.moveTo(x,y,z)  --Sets where the robot is going to move to, DOES NOT DO ANY MOVEMENT, that is handled in moveTick().
 	if type(x) == "table" then
+		debug("Found a table...");
 		y = x[2];
 		z = x[3];
 		x = x[1];  --Make sure to assign x last or else y and z can't be assigned(as x will no longer be a table).
@@ -122,11 +129,11 @@ function moveTo.moveTo(x,y,z)  --Sets where the robot is going to move to, DOES 
 	moveTo.tPosition.x = x;
 	moveTo.tPosition.y = y;
 	moveTo.tPosition.z = z;
-	print("Moving to " .. x .. "," .. y .. "," .. z .. ".");
+	_debug("Moving to " .. x .. "," .. y .. "," .. z .. ".");
 end
 
 function moveTo.moveC(chunkX,chunkY)  --Move to specific chunk(THIS IS NOT X,Y POSITION IN THE WORLD.  This is x,y chunk based on where the starting point is)[eg. 5,4 is 5 chunks to the right, 4 chunks forward
-  print("Moving...");
+  _debug("Moving...");
   
 end
 
