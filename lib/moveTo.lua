@@ -27,7 +27,7 @@
 local robot = require("robot");
 local component = require("component");
 local sides = require("sides");
-local dev = require("debug");
+local dev = require("Ndebug");
 local nav = component.navigation;
 
 
@@ -121,7 +121,7 @@ end
 
 function moveTo.moveTo(x,y,z)  --Sets where the robot is going to move to, DOES NOT DO ANY MOVEMENT, that is handled in moveTick().
 	if type(x) == "table" then
-		debug("Found a table...");
+		_debug("Found a table...");
 		y = x[2];
 		z = x[3];
 		x = x[1];  --Make sure to assign x last or else y and z can't be assigned(as x will no longer be a table).
