@@ -24,7 +24,7 @@
 
 local robot = require("robot");
 local component = require("component");
-local nav = component.navigation or nil;
+local nav = component.navigation;
 
 local moveTo = {
 				hasHome = false,
