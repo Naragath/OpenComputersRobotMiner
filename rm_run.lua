@@ -4,9 +4,8 @@ package.path = "/lib/?.lua;/usr/lib/?.lua;/home/lib/?.lua;./?.lua;/home/bin/lib/
 local comp = require("component");
 local mT = require("moveTo");
 local version = require("version");
---local nav = comp.navigation;
 
 print("Welcome to Naragath\'s Robot Miner v" .. version.major .. "." .. version.minor .. "." .. version.build);
 print("Loading please wait...");
 mT.setHome("rm1");
-mT.returnToZero();
+mT.returnHome();
