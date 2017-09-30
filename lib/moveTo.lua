@@ -69,8 +69,8 @@ function tLen(t)  --Simple table counting function since table.getn() doesn't wo
 
 end
 
-function moveTo.noNave()  --Should only call if there is no navigation component, later will assume there where the robot is put down is the corner of chunk 0(so we can use it on lower tier robots)
-	print("ERROR: There is not navigation upgrade in this robot, Naragath\'s robot miner cannot work properly without it...");
+function moveTo.noNav()  --Should only call if there is no navigation component, later will assume there where the robot is put down is the corner of chunk 0(so we can use it on lower tier robots)
+	print("ERROR: There is no navigation upgrade in this robot, Naragath\'s robot miner cannot work properly without it...");
 end
 
 function moveTo.setHome(navID)  --Make sure to call this before returnHome so that it knows where "home" is at(used to calculate where each chunk available for mining is at at).
