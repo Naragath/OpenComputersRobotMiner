@@ -59,7 +59,8 @@ local function fWP(filter)  --Filter waypoints by a filter(a function returning 
 		if filter(w) then
 			_debug("Found a match!");
 			_debug("Position X: " .. w.position[1]);
-			table.insert(ret,w);
+			--table.insert(ret,w.position);
+			ret[#ret+1] = w;
 		end
 	end
 	return ret;
@@ -84,8 +85,8 @@ end
 
 function moveTo.setHome(navID)  --Make sure to call this before returnHome so that it knows where "home" is at(used to calculate where each chunk available for mining is at at).
 		moveTo.updateWaypoints();
-		table.insert(moveTo.homePoint,fWP(function(w) return w.label == naveID; end));
-		--moveTo.homePoint = fWP(function(w) return w.label == navID; end);
+		--table.insert(moveTo.homePoint,fWP(function(w) return w.label == naveID; end));
+		moveTo.homePoint[#moveTo.homePoint+1] = fWP(function(w) return w.label == navID; end);
 		if next(moveTo.homePoint) == nil then
 			moveTo.hasHome = false;
 		else
@@ -99,10 +100,10 @@ function moveTo.returnHome()  --Useful to get the robot to go to a spot that the
 			else
 				_debug("Doing some nav stuffz.");
 				_debug(type(moveTo.homePoint) .. " homePoint type...");
-				for _,hy in pairs(moveTo.homePoint[1]) do
-					for hhx,hhy in pairs(hy) do
-						_debug(hhx .. ": hhx");
-						_debug(hhy .. ": hhy");
+				
+				for hx,hy in ipairs(moveTo.homePoint) do
+					for hhy in hy do
+						_debug(hhy);
 					end
 				end
 				_debug(type(moveTo.homePoint.position) .. " homePoint.position type...");
