@@ -99,9 +99,11 @@ function moveTo.returnHome()  --Useful to get the robot to go to a spot that the
 			else
 				_debug("Doing some nav stuffz.");
 				_debug(type(moveTo.homePoint) .. " homePoint type...");
-				for hx,hy in pairs(moveTo.homePoint[1]) do
-					_debug(hx);
-					_debug(hy);
+				for _,hy in pairs(moveTo.homePoint[1]) do
+					for hhx,hhy in pairs(hy) do
+						_debug(hhx .. ": hhx");
+						_debug(hhy .. ": hhy");
+					end
 				end
 				_debug(type(moveTo.homePoint.position) .. " homePoint.position type...");
 				moveTo.moveTo(moveTo.homePoint.position);
