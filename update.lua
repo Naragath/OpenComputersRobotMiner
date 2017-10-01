@@ -9,4 +9,4 @@ lib/version.lua
 lib/Ndebug.lua
 
 ##VERSION
-0.0.49
+0.0.50
