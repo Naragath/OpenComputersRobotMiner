@@ -84,7 +84,7 @@ end
 
 function moveTo.setHome(navID)  --Make sure to call this before returnHome so that it knows where "home" is at(used to calculate where each chunk available for mining is at at).
 		moveTo.updateWaypoints();
-		table.insert(fWP(function(w) return w.label == naveID; end));
+		table.insert(moveTo.homePoint,fWP(function(w) return w.label == naveID; end));
 		--moveTo.homePoint = fWP(function(w) return w.label == navID; end);
 		if next(moveTo.homePoint) == nil then
 			moveTo.hasHome = false;
@@ -122,18 +122,18 @@ function moveTo.moveTick()  --Without nav we'll have to assume that the first wa
 		end
 end
 
-function moveTo.moveTo(x,y,z)  --Sets where the robot is going to move to, DOES NOT DO ANY MOVEMENT, that is handled in moveTick().
-	if type(x) == table then
+function moveTo.moveTo(ax,ay,az)  --Sets where the robot is going to move to, DOES NOT DO ANY MOVEMENT, that is handled in moveTick().
+	if type(ax) == "table" then
 		_debug("Found a table...");
-		y = x[2];
-		z = x[3];
-		x = x[1];  --Make sure to assign x last or else y and z can't be assigned(as x will no longer be a table).
+		ay = ax[2];
+		az = ax[3];
+		ax = ax[1];  --Make sure to assign x last or else y and z can't be assigned(as x will no longer be a table).
 	end
-	_debug(type(x));
-	moveTo.tPosition.x = x;
-	moveTo.tPosition.y = y;
-	moveTo.tPosition.z = z;
-	_debug("Moving to " .. x .. "," .. y .. "," .. z .. ".");
+	_debug(type(ax));
+	moveTo.tPosition.x = ax;
+	moveTo.tPosition.y = ay;
+	moveTo.tPosition.z = az;
+	_debug("Moving to " .. ax .. "," .. ay .. "," .. az .. ".");
 end
 
 function moveTo.moveC(chunkX,chunkY)  --Move to specific chunk(THIS IS NOT X,Y POSITION IN THE WORLD.  This is x,y chunk based on where the starting point is)[eg. 5,4 is 5 chunks to the right, 4 chunks forward
