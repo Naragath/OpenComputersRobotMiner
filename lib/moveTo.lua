@@ -99,6 +99,7 @@ function moveTo.returnHome()  --Useful to get the robot to go to a spot that the
 			else
 				_debug("Doing some nav stuffz.");
 				_debug(type(moveTo.homePoint) .. " homePoint type...");
+				_debug(moveTo.homePoint[1]);
 				_debug(type(moveTo.homePoint.position) .. " homePoint.position type...");
 				moveTo.moveTo(moveTo.homePoint.position);
 			end
@@ -133,7 +134,7 @@ function moveTo.moveTo(ax,ay,az)  --Sets where the robot is going to move to, DO
 	moveTo.tPosition.x = ax;
 	moveTo.tPosition.y = ay;
 	moveTo.tPosition.z = az;
-	_debug("Moving to " .. ax .. "," .. ay .. "," .. az .. ".");
+	_debug("Moving to " .. tostring(ax) .. "," .. tostring(ay) .. "," .. tostring(az) .. ".");
 end
 
 function moveTo.moveC(chunkX,chunkY)  --Move to specific chunk(THIS IS NOT X,Y POSITION IN THE WORLD.  This is x,y chunk based on where the starting point is)[eg. 5,4 is 5 chunks to the right, 4 chunks forward
