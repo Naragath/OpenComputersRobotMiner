@@ -33,6 +33,7 @@ local nav = component.navigation;
 
 local moveTo = {
 				hasHome = false,
+				homeName = "",
 				homePoint = {},
 				moving = false,
 				currentFacing = 3,  --Default is south, may change this later
@@ -92,6 +93,7 @@ function moveTo.setHome(navID)  --Make sure to call this before returnHome so th
 			moveTo.hasHome = false;
 		else
 			moveTo.hasHome = true;
+			moveTo.homeName = navID;
 		end
 end
 
@@ -100,6 +102,7 @@ function moveTo.returnHome()  --Useful to get the robot to go to a spot that the
 				_debug("Home waypoint has not been set, did it get removed?");
 			else
 				_debug("Doing some nav stuffz.");
+				moveTo.setHome(moveTo.homeName);
 				if moveTo.moving then  --We could be moving to another chunk, so tell it to stop
 					moveTo.moving = false;
 				end
@@ -199,15 +202,19 @@ function moveTo.moveTo(ax,ay,az)  --Sets where the robot is going to move to, DO
 end
 
 function moveTo.moveC(chunkX,chunkZ)  --Move to specific chunk(THIS IS NOT X,Y POSITION IN THE WORLD.  This is x,y chunk based on where the starting point is)[eg. 5,4 is 5 chunks to the right, 4 chunks forward
-  _debug("Moving to chunk" .. chunkX .. " " .. chunkY);
-  local tx,ty,tz = moveTo.tPosition.x - moveTo.position.x,moveTo.tPosition.y - moveTo.position.y,moveTo.tPosition.z - moveTo.position.z
-  local tcx,tcz = chunkX*16,chunkZ*16;
-  if tcx and tcz == 0 then
-	_debug("Bad call to moveTo.moveC.  Cannot be at 0,0(that's the homepoint and we don't want to destroy the homePoint)");
-	else
-	
-	moveTo.moveTo(tx+tcx,moveTo.homePoint[1][1][2],tz+tcz);
-	
+  _debug("Moving to chunk " .. chunkX .. " " .. chunkZ);
+  if moveTo.hasHome then
+	moveTo.setHome(moveTo.homeName);  --Basically this updates the homepoint, but useful if we change the home waypoint between calls
+	local tx,tz = moveTo.homePoint[1][1][1] - moveTo.position.x,moveTo.homePoint[1][1][3] - moveTo.position.z
+	local tcx,tcz = chunkX*16,chunkZ*16;
+	if tcx == 0 and tcz == 0 then
+		_debug("Bad call to moveTo.moveC.  Cannot be at 0,0(that's the homepoint and we don't want to destroy the homePoint)");
+		else
+		
+		moveTo.moveTo(tx+tcx,moveTo.homePoint[1][1][2],tz+tcz);
+		_debug("Arrived at the chunk.");
+		
+	end
   end
   
 end
