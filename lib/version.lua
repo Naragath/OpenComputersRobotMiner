@@ -1,7 +1,7 @@
 local version = {
   major = 0,
   minor = 0,
-  build = 58
+  build = 59
 }
 
 return version;
