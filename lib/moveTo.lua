@@ -89,6 +89,7 @@ function moveTo.setHome(navID)  --Make sure to call this before returnHome so th
 		moveTo.updateWaypoints();
 		--table.insert(moveTo.homePoint,fWP(function(w) return w.label == naveID; end));
 		moveTo.homePoint[1] = fWP(function(w) return w.label == navID; end);
+		moveTo.position.x,moveTo.position.y,moveTo.position.z = (moveTo.homePoint[1][1][1]*-1),(moveTo.homePoint[1][1][2]*-1),(moveTo.homePoint[1][1][3]*-1)
 		if next(moveTo.homePoint) == nil then
 			moveTo.hasHome = false;
 		else
@@ -205,13 +206,13 @@ function moveTo.moveC(chunkX,chunkZ)  --Move to specific chunk(THIS IS NOT X,Y P
   _debug("Moving to chunk " .. chunkX .. " " .. chunkZ);
   if moveTo.hasHome then
 	--moveTo.setHome(moveTo.homeName);  --Basically this updates the homepoint, but useful if we change the home waypoint between calls
-	local tx,tz = moveTo.homePoint[1][1][1],moveTo.homePoint[1][1][3];
+	--local tx,tz = moveTo.homePoint[1][1][1],moveTo.homePoint[1][1][3];
 	local tcx,tcz = chunkX*16,chunkZ*16;
 	if tcx == 0 and tcz == 0 then
 		_debug("Bad call to moveTo.moveC.  Cannot be at 0,0(that's the homepoint and we don't want to destroy the homePoint)");
 		else
 		
-		moveTo.moveTo(tx+tcx,moveTo.homePoint[1][1][2],tz+tcz);
+		moveTo.moveTo(tcx,0,tcz);
 		_debug("Arrived at the chunk.");
 		
 	end
