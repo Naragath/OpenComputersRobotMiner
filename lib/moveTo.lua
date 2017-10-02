@@ -94,6 +94,7 @@ function moveTo.setHome(navID)  --Make sure to call this before returnHome so th
 		else
 			moveTo.hasHome = true;
 			moveTo.homeName = navID;
+			moveTo.position.x,moveTo.position.y,moveTo.position.z = moveTo.homePoint[1][1][1],moveTo.homePoint[1][1][2],moveTo.homePoint[1][1][3];
 		end
 end
 
@@ -102,17 +103,19 @@ function moveTo.returnHome()  --Useful to get the robot to go to a spot that the
 				_debug("Home waypoint has not been set, did it get removed?");
 			else
 				_debug("Doing some nav stuffz.");
-				moveTo.setHome(moveTo.homeName);
+				--moveTo.setHome(moveTo.homeName);
 				if moveTo.moving then  --We could be moving to another chunk, so tell it to stop
 					moveTo.moving = false;
 				end
 				
 				moveTo.moveTo(moveTo.homePoint);
+				--moveTo.position.x,moveTo.position.y,moveTo.position.z = 0,0,0;  --reset to 0,0,0
 			end
 end
 
 function moveTo.moveTick()  --Without nav we'll have to assume that the first way it's set down is north(or south?), perhaps expose a way for the user to set it in the browser setup?
 		moveTo.currentFacing = nav.getFacing();
+		print("CurPos: " .. moveTo.position.x .. "," .. moveTo.position.y .. "," .. moveTo.position.z);
 		if moveTo.tPosition.y - moveTo.position.y > 0 then
 			local success, why = robot.up();
 			if success == nil then
@@ -204,7 +207,7 @@ end
 function moveTo.moveC(chunkX,chunkZ)  --Move to specific chunk(THIS IS NOT X,Y POSITION IN THE WORLD.  This is x,y chunk based on where the starting point is)[eg. 5,4 is 5 chunks to the right, 4 chunks forward
   _debug("Moving to chunk " .. chunkX .. " " .. chunkZ);
   if moveTo.hasHome then
-	moveTo.setHome(moveTo.homeName);  --Basically this updates the homepoint, but useful if we change the home waypoint between calls
+	--moveTo.setHome(moveTo.homeName);  --Basically this updates the homepoint, but useful if we change the home waypoint between calls
 	local tx,tz = moveTo.homePoint[1][1][1] - moveTo.position.x,moveTo.homePoint[1][1][3] - moveTo.position.z
 	local tcx,tcz = chunkX*16,chunkZ*16;
 	if tcx == 0 and tcz == 0 then
