@@ -110,7 +110,48 @@ end
 
 function moveTo.moveTick()  --Without nav we'll have to assume that the first way it's set down is north(or south?), perhaps expose a way for the user to set it in the browser setup?
 		moveTo.currentFacing = nav.getFacing();
-		if moveTo.tPosition.x - moveTo.position.x > 0 then
+		if moveTo.tPosition.y - moveTo.position.y > 0 then
+			local success, why = robot.up();
+			if success == nil then
+				_debug(why);
+			else
+				moveTo.position.y = moveTo.position.y + 1;
+			end
+		elseif moveTo.tPosition.y - moveTo.position.y < 0 then
+			local success, why = robot.down();
+			if success == nil then
+				_debug(why);
+			else
+				moveTo.position.y = moveTo.position.y - 1;
+			end
+		elseif moveTo.tPosition.z - moveTo.position.z > 0 then
+			if moveTo.currentFacing == sides.south then
+				local success, why = robot.forward();
+				if success == nil then
+					_debug(why);
+				else
+					moveTo.position.z = moveTo.position.z + 1;
+				end
+			elseif moveTo.currentFacing == sides.north or sides.east then
+				robot.turnRight();
+			else
+				robot.turnLeft();
+			end
+		elseif moveTo.tPosition.z - moveTo.position.z < 0 then
+			if moveTo.currentFacing == sides.north then
+				local success,why = robot.forward();
+				if success == nil then
+					_debug(why);
+				else
+					moveTo.position.z = moveTo.position.z - 1;
+				end
+			elseif moveTo.currentFacing == sides.south or sides.east then
+				robot.turnLeft();
+			else
+				robot.turnRight();
+			end
+		end
+		elseif moveTo.tPosition.x - moveTo.position.x > 0 then
 			if moveTo.currentFacing == sides.east then
 				local success, why = robot.forward();
 				if success == nil then
@@ -136,7 +177,9 @@ function moveTo.moveTick()  --Without nav we'll have to assume that the first wa
 			else
 				robot.turnRight();
 			end
-		elseif moveTo.tPosition.x - moveTo.position.x == 0 then
+		end
+		
+		if moveTo.tPosition.x - moveTo.position.x == 0 then
 			moveTo.moving = false;
 		end
 end
