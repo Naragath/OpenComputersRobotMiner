@@ -60,7 +60,7 @@ local function fWP(filter)  --Filter waypoints by a filter(a function returning 
 			_debug("Found a match!");
 			_debug("Position X: " .. w.position[1]);
 			--table.insert(ret,w.position);
-			ret[#ret+1] = w;
+			ret[#ret+1] = w.position;
 		end
 	end
 	return ret;
@@ -101,13 +101,8 @@ function moveTo.returnHome()  --Useful to get the robot to go to a spot that the
 				_debug("Doing some nav stuffz.");
 				_debug(type(moveTo.homePoint) .. " homePoint type...");
 				
-				for hx,hy in ipairs(moveTo.homePoint) do
-					for hhy in hy do
-						_debug(hhy);
-					end
-				end
-				_debug(type(moveTo.homePoint.position) .. " homePoint.position type...");
-				moveTo.moveTo(moveTo.homePoint.position);
+				_debug(type(moveTo.homePoint) .. " homePoint.position type...");
+				moveTo.moveTo(moveTo.homePoint);
 			end
 end
 
