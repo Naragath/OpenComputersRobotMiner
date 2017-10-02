@@ -8,4 +8,5 @@ local version = require("version");
 print("Welcome to Naragath\'s Robot Miner v" .. version.major .. "." .. version.minor .. "." .. version.build);
 print("Loading please wait...");
 mT.setHome("rm1");
-mT.returnHome();
+--mT.returnHome();
+mT.moveC(2,0);

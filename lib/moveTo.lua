@@ -198,8 +198,17 @@ function moveTo.moveTo(ax,ay,az)  --Sets where the robot is going to move to, DO
 	_debug("Moving to " .. tostring(ax) .. "," .. tostring(ay) .. "," .. tostring(az) .. ".");
 end
 
-function moveTo.moveC(chunkX,chunkY)  --Move to specific chunk(THIS IS NOT X,Y POSITION IN THE WORLD.  This is x,y chunk based on where the starting point is)[eg. 5,4 is 5 chunks to the right, 4 chunks forward
-  _debug("Moving...");
+function moveTo.moveC(chunkX,chunkZ)  --Move to specific chunk(THIS IS NOT X,Y POSITION IN THE WORLD.  This is x,y chunk based on where the starting point is)[eg. 5,4 is 5 chunks to the right, 4 chunks forward
+  _debug("Moving to chunk" .. chunkX .. " " .. chunkY);
+  local tx,ty,tz = moveTo.tPosition.x - moveTo.position.x,moveTo.tPosition.y - moveTo.position.y,moveTo.tPosition.z - moveTo.position.z
+  local tcx,tcz = chunkX*16,chunkZ*16;
+  if tcx and tcz == 0 then
+	_debug("Bad call to moveTo.moveC.  Cannot be at 0,0(that's the homepoint and we don't want to destroy the homePoint)");
+	else
+	
+	moveTo.moveTo(tx+tcx,moveTo.homePoint[1][1][2],tz+tcz);
+	
+  end
   
 end
 
