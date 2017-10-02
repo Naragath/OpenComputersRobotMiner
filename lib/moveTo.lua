@@ -34,6 +34,7 @@ local nav = component.navigation;
 local moveTo = {
 				hasHome = false,
 				homePoint = {},
+				moving = false,
 				currentFacing = 3,  --Default is south, may change this later
 				position = {
 							x=0,
@@ -99,28 +100,44 @@ function moveTo.returnHome()  --Useful to get the robot to go to a spot that the
 				_debug("Home waypoint has not been set, did it get removed?");
 			else
 				_debug("Doing some nav stuffz.");
-				_debug(type(moveTo.homePoint) .. " homePoint type...");
+				if moveTo.moving then  --We could be moving to another chunk, so tell it to stop
+					moveTo.moving = false;
+				end
 				
-				_debug(type(moveTo.homePoint) .. " homePoint.position type...");
 				moveTo.moveTo(moveTo.homePoint);
 			end
 end
 
 function moveTo.moveTick()  --Without nav we'll have to assume that the first way it's set down is north(or south?), perhaps expose a way for the user to set it in the browser setup?
+		moveTo.currentFacing = nav.getFacing();
 		if moveTo.tPosition.x - moveTo.position.x > 0 then
-			moveTo.currentFacing = nav.getFacing();
 			if moveTo.currentFacing == sides.east then
 				local success, why = robot.forward();
 				if success == nil then
 					_debug(why);
+				else
+					moveTo.position.x = moveTo.position.x + 1;
 				end
 			elseif moveTo.currentFacing == sides.north or sides.west then
 				robot.turnRight();
 			else
 				robot.turnLeft();
 			end
-		else
-			
+		elseif moveTo.tPosition.x - moveTo.position.x < 0 then
+			if moveTo.currentFacing == sides.west then
+				local success,why = robot.forward();
+				if success == nil then
+					_debug(why);
+				else
+					moveTo.position.x = moveTo.position.x - 1;
+				end
+			elseif moveTo.currentFacing == sides.south or sides.east then
+				robot.turnLeft();
+			else
+				robot.turnRight();
+			end
+		elseif moveTo.tPosition.x - moveTo.position.x == 0 then
+			moveTo.moving = false;
 		end
 end
 
@@ -132,6 +149,10 @@ function moveTo.moveTo(ax,ay,az)  --Sets where the robot is going to move to, DO
 	moveTo.tPosition.x = ax;
 	moveTo.tPosition.y = ay;
 	moveTo.tPosition.z = az;
+	moveTo.moving = true;
+	while moveTo.moving do
+		moveTo.moveTick();
+	end
 	_debug("Moving to " .. tostring(ax) .. "," .. tostring(ay) .. "," .. tostring(az) .. ".");
 end
 
