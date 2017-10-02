@@ -127,9 +127,9 @@ end
 function moveTo.moveTo(ax,ay,az)  --Sets where the robot is going to move to, DOES NOT DO ANY MOVEMENT, that is handled in moveTick().
 	if type(ax) == "table" then
 		_debug("Found a table...");
-		ay = ax[2];
-		az = ax[3];
-		ax = ax[1];  --Make sure to assign x last or else y and z can't be assigned(as x will no longer be a table).
+		ay = ax[1][2];
+		az = ax[1][3];
+		ax = ax[1][1];  --Make sure to assign x last or else y and z can't be assigned(as x will no longer be a table).
 	end
 	_debug(type(ax));
 	moveTo.tPosition.x = ax;
