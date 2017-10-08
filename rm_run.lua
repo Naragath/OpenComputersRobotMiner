@@ -18,7 +18,7 @@ m.open(1337);
 
 while true do
 	local _,_,from,port,_,msg,arg1,arg2 = ev.pull("modem_message");
-	if msg == "*SetHome*" then
+	if msg == "*SETHOME*" then
 		mT.setHome(arg1);
 	elseif msg == "*MineChunk*" then
 		mT.moveC(arg1,arg2,updatePos);
