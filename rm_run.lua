@@ -21,10 +21,7 @@ while true do
 	if msg == "*SETHOME*" then
 		mT.setHome(arg1);
 	elseif msg == "*MineChunk*" then
-		mT.moveC(arg1,arg2,function() updatePos(moveTo.tPosition.x,moveTo.tPosition.z); end);
+		mT.moveC(arg1,arg2);
+		_debug("Yarp");
 	end
-end
-
-function updatePos(x,z)
-	_debug("Yepp...");
 end
