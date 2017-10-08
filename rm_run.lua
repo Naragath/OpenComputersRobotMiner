@@ -4,9 +4,27 @@ package.path = "/lib/?.lua;/usr/lib/?.lua;/home/lib/?.lua;./?.lua;/home/bin/lib/
 local comp = require("component");
 local mT = require("moveTo");
 local version = require("version");
+local ev = require("event");
+
+local m = comp.modem;
 
 print("Welcome to Naragath\'s Robot Miner v" .. version.major .. "." .. version.minor .. "." .. version.build);
 print("Loading please wait...");
-mT.setHome("rm1");
+--mT.setHome("rm1");
 --mT.returnHome();
-mT.moveC(2,0);
+--mT.moveC(2,0);
+m.open(1337);
+
+
+while true do
+	local _,_,from,port,_,msg,arg1,arg2 = ev.pull("modem_message");
+	if msg == "*SetHome*" then
+		mT.setHome(arg1);
+	elseif msg == "*MineChunk*" then
+		mT.moveC(arg1,arg2,updatePos);
+	end
+end
+
+function updatePos(x,y)
+	_debug("Yepp...");
+end

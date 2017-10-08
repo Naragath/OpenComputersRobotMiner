@@ -202,7 +202,7 @@ function moveTo.moveTo(ax,ay,az)  --Sets where the robot is going to move to, DO
 	_debug("Moving to " .. tostring(ax) .. "," .. tostring(ay) .. "," .. tostring(az) .. ".");
 end
 
-function moveTo.moveC(chunkX,chunkZ)  --Move to specific chunk(THIS IS NOT X,Y POSITION IN THE WORLD.  This is x,y chunk based on where the starting point is)[eg. 5,4 is 5 chunks to the right, 4 chunks forward
+function moveTo.moveC(chunkX,chunkZ,callB)  --Move to specific chunk(THIS IS NOT X,Y POSITION IN THE WORLD.  This is x,y chunk based on where the starting point is)[eg. 5,4 is 5 chunks to the right, 4 chunks forward
   _debug("Moving to chunk " .. chunkX .. " " .. chunkZ);
   if moveTo.hasHome then
 	--moveTo.setHome(moveTo.homeName);  --Basically this updates the homepoint, but useful if we change the home waypoint between calls
@@ -214,6 +214,7 @@ function moveTo.moveC(chunkX,chunkZ)  --Move to specific chunk(THIS IS NOT X,Y P
 		
 		moveTo.moveTo(tcx,0,tcz);
 		_debug("Arrived at the chunk.");
+		callB(0,0);
 		
 	end
   end
