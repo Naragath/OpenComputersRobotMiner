@@ -217,6 +217,8 @@ function moveTo.moveC(chunkX,chunkZ,callB)  --Move to specific chunk(THIS IS NOT
 		callB(0,0);
 		
 	end
+  else
+	_debug("No home set...");
   end
   
 end
