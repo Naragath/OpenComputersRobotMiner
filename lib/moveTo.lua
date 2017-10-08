@@ -86,6 +86,7 @@ function moveTo.noNav()  --Should only call if there is no navigation component,
 end
 
 function moveTo.setHome(navID)  --Make sure to call this before returnHome so that it knows where "home" is at(used to calculate where each chunk available for mining is at at).
+		_debug("Setting homepoint... " .. navID);
 		moveTo.updateWaypoints();
 		--table.insert(moveTo.homePoint,fWP(function(w) return w.label == naveID; end));
 		moveTo.homePoint[1] = fWP(function(w) return w.label == navID; end);
